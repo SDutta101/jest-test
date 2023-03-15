@@ -1,30 +1,26 @@
+// Description:
+// Verify that the webpage has a <header> section.
+
 const puppeteer = require('puppeteer');
 
-describe("App.js", () => {
-  let browser;
-  let page;
+let browser;
 
-  const width = 1440;
-  const height = 700;
-
-  beforeEach(async () => {
+beforeAll(async () => {
     browser = await puppeteer.launch({
-      headless: true,
-      slowMo: 25,
-      args: [`--window-size=${width},${height}`],
-      defaultViewport: {
-        width,
-        height,
-      },
-    });
-    page = await browser.newPage();
-    await page.goto('http://localhost:3000');
-  }, 100000);
-
-  it("contains the h1 tag", async () => {
-    const heading = await page.$('h1');
-    expect(heading).toBeDefined();
-  });
-
-  afterAll(() => browser.close());
+        executablePath: process.env.CHROMIUM_PATH,
+        args: ['--no-sandbox'], // This was important. Can't remember why
+      });
 });
+
+afterAll(async () => {
+  await browser.close();
+});
+
+test('contains the <h1> tag', async () => {
+  const page = await browser.newPage();
+  await page.goto('http://localhost:8080');
+  
+  const heading = await page.$('h1');
+  expect(heading).toBeDefined();
+});
+
