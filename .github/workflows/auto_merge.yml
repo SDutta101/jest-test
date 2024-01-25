@@ -59,7 +59,7 @@ jobs:
         run: cat src/App.js
 
       - name: Print Diff
-          run: git diff main..dev1
+        run: git diff main..dev1
 
       - name: Print Branches and Log (After)
         run: |
