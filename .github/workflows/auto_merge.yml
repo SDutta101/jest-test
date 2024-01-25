@@ -42,6 +42,8 @@ jobs:
 
       - name: Merge dev1 into main
         run: |
+          git config user.name "SDutta101"
+          git config user.email "saurav11dutta@gmail.com"
           git merge --allow-unrelated-histories origin/dev1 --no-edit
 
       - name: Push changes to origin/main
