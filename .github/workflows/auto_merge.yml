@@ -46,6 +46,14 @@ jobs:
           git config user.email "saurav11dutta@gmail.com"
           git merge --allow-unrelated-histories origin/dev2 --no-edit
 
+      - name: Handle Merge Conflict
+        run: |
+          if [ -e "CONFLICT" ]; then
+            git checkout --ours .
+            git add .
+            git commit -m "Automated merge with conflict resolution"
+          fi
+
       - name: Push changes to origin/main
         run: git push --force origin main
 
