@@ -17,9 +17,16 @@ jobs:
           git branch
           git log --oneline --graph -n 5
 
+      - name: Check Remote Branches
+        run: |
+          git remote update
+          git branch -r
+
+      - name: Checkout Main Branch
+        run: git checkout -b main origin/main
+
       - name: Merge dev1 into main
         run: |
-          git checkout main
           git pull origin dev1 --no-edit
           git push origin main
 
