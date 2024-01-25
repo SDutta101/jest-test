@@ -55,6 +55,12 @@ jobs:
       - name: Push changes to origin/main
         run: git push --force origin main
 
+      - name: Print File Contents
+        run: cat src/App.js
+
+      - name: Print Diff
+          run: git diff main..dev1
+
       - name: Print Branches and Log (After)
         run: |
           git branch
