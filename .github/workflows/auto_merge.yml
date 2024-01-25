@@ -19,11 +19,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Print Branches and Log (Before)
-        run: |
-          git branch
-          git log --oneline --graph -n 5
-
       - name: Fetch latest changes from origin/main
         run: git fetch origin main
 
@@ -41,27 +36,7 @@ jobs:
         run: git checkout -B main origin/main
 
       - name: Merge dev1 into main
-        run: |
-          git merge --allow-unrelated-histories origin/dev1 --no-edit || echo "Merge conflict"
-
-      - name: Handle Merge Conflict
-        run: |
-          if [ -e "CONFLICT" ]; then
-            git checkout --ours .
-            git add .
-            git commit -m "Automated merge with conflict resolution"
-          fi
+        run: git merge --allow-unrelated-histories origin/dev1 --no-edit
 
       - name: Push changes to origin/main
         run: git push --force origin main
-
-      - name: Print File Contents
-        run: cat src/App.js
-
-      - name: Print Diff
-        run: git diff main..dev1
-
-      - name: Print Branches and Log (After)
-        run: |
-          git branch
-          git log --oneline --graph -n 5
