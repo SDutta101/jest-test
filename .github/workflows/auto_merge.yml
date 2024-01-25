@@ -4,34 +4,32 @@ on:
   push:
     branches:
       - dev1
+env:
+  # replace "github_username" with your GitHub username
+  # replace "github.com/username/repo.git" with your GitHub repo path
+  # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
+  MY_REPO: https://SDutta101:${{secrets.GITHUB_TOKEN}}@github.com/SDutta101/jest-test.git
+
+  # replace "long-lived_branch_name" with your branch name
+  MY_BRANCH: dev1
+
+  # replace it with the path to master repo
+  MASTER_REPO: https://github.com/SDutta101/jest-test.git
+
+  # replace "master" with your master branch name
+  MASTER_BRANCH: main
 
 jobs:
   merge:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Print Branches and Log (Before)
-        run: |
-          git branch
-          git log --oneline --graph -n 5
-
-      - name: Checkout Main Branch
-        run: git checkout main
-
-      - name: Pull changes from origin/main
-        run: git pull origin main --no-edit
-
-      - name: Merge dev1 into main
-        run: |
-          git merge origin/dev1 --no-edit
-
-      - name: Push changes to origin/main
-        run: git push --force origin main
-
-      - name: Print Branches and Log (After)
-        run: |
-          git branch
-          git log --oneline --graph -n 5
+    - name: Merge with master
+      run: |
+        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+        cd tmp
+        git config user.name "SDutta101"
+        git config user.email "saurav11dutta@gmail.com"
+        git config pull.rebase false
+        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+        git push
