@@ -1,9 +1,9 @@
-name: Auto Merge dev to main
+name: Auto Merge dev1 to main
 
 on:
   push:
     branches:
-      - dev
+      - dev1
 
 jobs:
   merge:
@@ -12,8 +12,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Merge dev into main
+      - name: Merge dev1 into main
         run: |
           git checkout -b main
-          git pull origin dev --no-edit
+          git pull origin dev1 --no-edit
           git push origin main
