@@ -28,6 +28,7 @@ jobs:
       - name: Merge dev1 into main
         run: |
           git pull origin dev1 --no-edit
+          git merge --strategy-option=ours --no-edit
           git push origin main
 
       - name: Print Branches and Log (After)
