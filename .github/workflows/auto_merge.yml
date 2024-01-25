@@ -42,7 +42,7 @@ jobs:
 
       - name: Merge dev1 into main
         run: |
-          git merge origin/dev1 --no-edit
+          git merge --allow-unrelated-histories origin/dev1 --no-edit
 
       - name: Push changes to origin/main
         run: git push --force origin main
