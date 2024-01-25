@@ -1,4 +1,4 @@
-name: Auto Merge dev1 to main
+name: Auto Merge Dev1 to Main
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   merge:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -17,19 +18,18 @@ jobs:
           git branch
           git log --oneline --graph -n 5
 
-      - name: Check Remote Branches
-        run: |
-          git remote update
-          git branch -r
-
       - name: Checkout Main Branch
-        run: git checkout -b main origin/main
+        run: git checkout main
+
+      - name: Pull changes from origin/main
+        run: git pull origin main --no-edit
 
       - name: Merge dev1 into main
         run: |
-          git pull origin dev1 --no-edit
-          git merge --strategy-option=ours --no-edit
-          git push origin main
+          git merge origin/dev1 --no-edit
+
+      - name: Push changes to origin/main
+        run: git push --force origin main
 
       - name: Print Branches and Log (After)
         run: |
