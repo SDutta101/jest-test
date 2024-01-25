@@ -41,7 +41,7 @@ jobs:
         run: git checkout -B main origin/main
 
       - name: Merge dev1 into main
-        run: git merge --allow-unrelated-histories origin/dev1 --no-edit
+        run: git merge --allow-unrelated-histories -X theirs origin/dev1 --no-edit
 
       - name: Push changes to origin/main
         run: git push --force origin main
