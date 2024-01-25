@@ -2,6 +2,6 @@ function App() {
   return <div className="App" />
 }
 
-// hello world
+// hello world string
 
 export default App
