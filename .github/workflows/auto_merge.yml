@@ -12,6 +12,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Print Branches and Log
+        run: |
+          git branch
+          git log --oneline --graph -n 5
+
+      - name: Check if 'main' branch exists
+        run: |
+          if ! git show-ref --quiet refs/heads/main; then
+            git checkout -b main
+            git push origin main
+          fi
+
       - name: Merge dev into main
         run: |
           git checkout main
